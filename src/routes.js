@@ -1,5 +1,5 @@
 import React from 'react';
-import Stores from './components/Stores.js';
+import Aplication from './components/Aplication.js';
 import Main from './components/Main.js';
 import {isAuthen} from './auth';
 import {BrowserRouter,Route,Switch,Redirect} from 'react-router-dom';
@@ -8,11 +8,11 @@ import {BrowserRouter,Route,Switch,Redirect} from 'react-router-dom';
 
 const PrivateRoute = ({component: Component, ...rest}) =>(
     <Route {...rest} render={props =>
-        
+
         isAuthen() ? (
             <Component {...props}/>
         ):(
-            <Redirect to={{pathname:'/',state:{from:props.location}}}/>
+            <Redirect to={{pathname:'/',state:{from:props.history}}}/>
         )
     }/>
 )
@@ -20,7 +20,7 @@ const Routes =()=>(
     <BrowserRouter>
         <Switch>
             <Route exact path="/" component={Main} />
-            <PrivateRoute exact path="/app" component={Stores}/>
+            <PrivateRoute exact path="/app" component={Aplication}/>
         </Switch>
     </BrowserRouter>
 )

@@ -1,0 +1,23 @@
+.stores{
+  padding:50px;
+}
+.listProducts{
+  display: grid;
+  grid-template-columns: 200px 200px 200px;
+  grid-template-rows: 230px 230px;
+  grid-gap: 20px;
+  justify-content: center;
+}
+.listStoress{
+  display: grid;
+  grid-template-columns: 120px 120px 120px;
+  grid-gap: 20px;
+  justify-content: center;
+  margin-bottom: 20px;
+  align-items: center;
+}
+.listStoress button{
+  font-size: 16px;
+  padding: 10px;
+  width: auto;
+}

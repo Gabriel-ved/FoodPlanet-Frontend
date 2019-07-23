@@ -1,9 +1,9 @@
 import React from 'react';
 import api from '../../services/api';
-import {Redirect} from 'react-router-dom';
 import './css/main.css';
 import './css/util.css';
-import './caraio.css'
+import './caraio.css';
+import {Redirect} from 'react-router-dom';
 
 class Login extends React.Component {
   constructor(props) {
@@ -12,6 +12,7 @@ class Login extends React.Component {
       text: '',
       password: '',
       errorM: null,
+      redirect: false
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleChange2 = this.handleChange2.bind(this);
@@ -28,9 +29,14 @@ class Login extends React.Component {
       const { clientUser, token } = await response.data
       await window.localStorage.setItem('@FoodPlanet:token', token);
       await window.localStorage.setItem('@FoodPlanet:user', JSON.stringify(clientUser));
-      <Redirect to={{pathname:'/app',state:{from:props.location}}}/>
+      this.setState({redirect:true})
     } catch (response) {
       this.setState({ errorM: JSON.stringify(response) })
+    }
+  }
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to='/app' />
     }
   }
 
@@ -52,7 +58,7 @@ class Login extends React.Component {
                 <span className="login100-form-title p-b-49">Login</span>
                 <div className="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
                   <span className="label-input100">CPF</span>
-                  <input className="input100" type="text" name="username" 
+                  <input className="input100" type="text" name="username"
                   onChange={this.handleChange}
                   value={this.state.text} placeholder="Coloque seu cpf" />
                   <span className="focus-input100"></span>
@@ -65,7 +71,7 @@ class Login extends React.Component {
                   value={this.state.password}  placeholder="coloque sua senha"/>
                   <span className="focus-input100"></span>
                 </div>
-
+                {this.renderRedirect()}
                 <div className="text-right p-t-8 p-b-31">
                   <a href="google.com">Esqueceu a senha?</a>
                 </div>
@@ -89,5 +95,5 @@ class Login extends React.Component {
     );
   }
 }
-        
-        export default Login;
+
+export default Login;
