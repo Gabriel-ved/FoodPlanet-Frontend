@@ -1,6 +1,7 @@
 import React from 'react';
 import Nav from './Mainpage/Nav.js';
-import Login from './Mainpage/Login';
+// import Login from './Mainpage/Login';
+import Register from './Mainpage/Register';
 import Jumpbox from './Mainpage/Jumpbox';
 import Footer from './Mainpage/Footer';
 import './Mainpage/caraio.css'
@@ -12,7 +13,7 @@ render(){
         <Nav/>
         <div className="main">
           <Jumpbox/>
-          <Login/>
+          <Register/>
         </div>
         <Footer/>
     </div>

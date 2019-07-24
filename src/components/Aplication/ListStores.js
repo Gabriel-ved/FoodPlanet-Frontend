@@ -30,7 +30,7 @@ class ListStores extends React.Component {
       <div className="listStoress">
           {this.state.stores.map(stores => (
               <div  key={stores._id}>
-                  <button type="button" class="btn btn-primary">{stores.name}</button>
+                  <button type="button" className="btn btn-primary">{stores.name}</button>
               </div>
             ))}
         </div>
@@ -49,6 +49,20 @@ class ListStores extends React.Component {
                     </div>
                 ))}
           </div>
+
+          <nav aria-label="Page navigation example">
+          <ul className="pagination justify-content-center">
+            <li className="page-item disabled">
+              <a className="page-link" href="/a" tabIndex="-1" aria-disabled="true">Previous</a>
+            </li>
+            <li className="page-item"><a className="page-link" href="/b">1</a></li>
+            <li className="page-item"><a className="page-link" href="/c">2</a></li>
+            <li className="page-item"><a className="page-link" href="/d">3</a></li>
+            <li className="page-item">
+              <a className="page-link" href="/e">Next</a>
+            </li>
+        </ul>
+        </nav>
       {!!this.state.errorM && <p>{this.state.errorM}</p>}
     </div>
   );
