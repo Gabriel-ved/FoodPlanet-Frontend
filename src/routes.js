@@ -6,9 +6,8 @@ import {BrowserRouter,Route,Switch,Redirect} from 'react-router-dom';
 
 
 
-const PrivateRoute = ({component: Component, ...rest}) =>(
+const PrivateRoute = ({component: Component,...rest}) =>(
     <Route {...rest} render={props =>
-
        isAuthen() ? (
             <Component {...props}/>
         ):(
@@ -19,10 +18,9 @@ const PrivateRoute = ({component: Component, ...rest}) =>(
 const Routes =()=>(
     <BrowserRouter>
         <Switch>
-            <Route exact path="/" component={Main} />
-            <PrivateRoute exact path="/app" component={Aplication}/>
+            <Route exact path='/' component={Main} />
+            <PrivateRoute path='/app/:page?' component={Aplication}/>
         </Switch>
     </BrowserRouter>
 )
-
 export default Routes;

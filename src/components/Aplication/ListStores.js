@@ -1,6 +1,7 @@
 import React from 'react';
 import api from '../../services/api.js'
 import './style.css'
+
 class ListStores extends React.Component {
   constructor(props){
     super(props)
@@ -8,26 +9,39 @@ class ListStores extends React.Component {
       stores:[],
       products:[],
       errorM: null,
+      totalpages:0,
     }
+    this.loadData = this.loadData.bind(this);
   }
-  async componentDidMount() {
+  async loadData(page){
     try{
       const response = await api.get('/stores')
       const {stores} = response.data;
       this.setState({stores})
 
-      const respo = await api.get('/products')
-      const {products} = respo.data;
+      const respo = await api.get(`/products?page=${page}`)
+      const products = respo.data.docs;
+      const totalpages = respo.data.pages;
       this.setState({products})
+      this.setState({totalpages})
+
     }catch(response){
       this.setState({errorM:JSON.stringify(response)})
     }
   }
 
+  async componentDidMount(prevProps) {
+      const { page } = this.props.match.params;
+      this.loadData(page);
+    
+  }
+  
+
   render(){
     return (
     <div className="stores">
       <div className="listStoress">
+        
           {this.state.stores.map(stores => (
               <div  key={stores._id}>
                   <button type="button" className="btn btn-primary">{stores.name}</button>
@@ -36,10 +50,10 @@ class ListStores extends React.Component {
         </div>
 
           <div className="listProducts">
+            
             {this.state.products.map(products=>(
                   <div  key={products._id}>
                       <div className="card">
-                          <img src="..." className="card-img-top" alt="..."/>
                           <div className="card-body">
                             <h5 className="card-title">{products.name}</h5>
                             <p className="card-text">{products.value}</p>
@@ -52,15 +66,9 @@ class ListStores extends React.Component {
 
           <nav aria-label="Page navigation example">
           <ul className="pagination justify-content-center">
-            <li className="page-item disabled">
-              <a className="page-link" href="/a" tabIndex="-1" aria-disabled="true">Previous</a>
-            </li>
-            <li className="page-item"><a className="page-link" href="/b">1</a></li>
-            <li className="page-item"><a className="page-link" href="/c">2</a></li>
-            <li className="page-item"><a className="page-link" href="/d">3</a></li>
-            <li className="page-item">
-              <a className="page-link" href="/e">Next</a>
-            </li>
+            <li className="page-item"><a className="page-link" href="1">1</a></li>
+            <li className="page-item"><a className="page-link" href="2">2</a></li>
+            <li className="page-item"><a className="page-link" href="3">3</a></li>
         </ul>
         </nav>
       {!!this.state.errorM && <p>{this.state.errorM}</p>}

@@ -10,7 +10,7 @@ render(){
     <div className="Main">
         <Nav/>
         <div className="main">
-          <ListStores/>
+          <ListStores {...this.props}/>
         </div>
         <Footer/>
     </div>
