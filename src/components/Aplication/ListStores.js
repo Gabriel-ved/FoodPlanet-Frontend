@@ -24,7 +24,7 @@ class ListStores extends React.Component {
       const totalpages = respo.data.pages;
       this.setState({products})
       this.setState({totalpages})
-
+      console.log(products)
     }catch(response){
       this.setState({errorM:JSON.stringify(response)})
     }
@@ -53,8 +53,9 @@ class ListStores extends React.Component {
             
             {this.state.products.map(products=>(
                   <div  key={products._id}>
-                      <div className="card">
-                          <div className="card-body">
+                      <div className="card bg-dark text-white">
+                      <img src={products.url} class="card-img" alt="..."/>
+                          <div className="card-img-overlay">
                             <h5 className="card-title">{products.name}</h5>
                             <p className="card-text">{products.value}</p>
                             <p className="card-text"><small className="text-muted">vendido por: </small></p>
