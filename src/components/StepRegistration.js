@@ -86,7 +86,6 @@ class StepRegistration extends React.Component {
 		this.setState({ cep: e.target.value });
 	}
 	handleSubmit(e){
-		e.pren
 	}
 
 render(){
