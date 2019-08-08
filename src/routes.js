@@ -1,24 +1,24 @@
 import React from 'react';
 import Aplication from './components/Aplication.js';
 import Main from './components/Main.js';
+import StepRegistration from './components/StepRegistration.js'
 import isAuthen from './auth';
 import {BrowserRouter,Route,Switch,Redirect} from 'react-router-dom';
 
 
 
-const PrivateRoute = ({component: Component,...rest}) =>(
-    <Route {...rest} render={props =>
+const PrivateRoute = props =>(
        isAuthen() ? (
-            <Component {...props}/>
+            <Route {...props}/>
         ):(
             <Redirect to={{pathname:'/',state:{from:props.location}}}/>
         )
-    }/>
 )
 const Routes =()=>(
     <BrowserRouter>
         <Switch>
             <Route exact path='/' component={Main} />
+            <Route exact path='/step' component={StepRegistration}/>
             <PrivateRoute path='/app/:page?' component={Aplication}/>
         </Switch>
     </BrowserRouter>

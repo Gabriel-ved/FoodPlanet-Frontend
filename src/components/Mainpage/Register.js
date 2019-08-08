@@ -39,7 +39,6 @@ class Register extends React.Component {
     try {
       var response = "";
       if(this.state.client === true){
-        console.log(this.state.client)
         response = await api.post('/register', {
           name: this.state.name,
           cpf: this.state.text,
@@ -48,11 +47,11 @@ class Register extends React.Component {
         const { client, token } = await response.data
         await window.localStorage.setItem('@FoodPlanet:token', token);
         await window.localStorage.setItem('@FoodPlanet:user', JSON.stringify(client));
-        console.log({client})
+       
 
 
       }else{
-        console.log(this.state.client)
+        
         response = await api.post('/register', {
           name: this.state.name,
           cnpj: this.state.text,
@@ -61,7 +60,7 @@ class Register extends React.Component {
         const { store, token } = await response.data
         await window.localStorage.setItem('@FoodPlanet:token', token);
         await window.localStorage.setItem('@FoodPlanet:store', JSON.stringify(store));
-        console.log({store})
+        
 
 
 
@@ -78,7 +77,7 @@ class Register extends React.Component {
 
   renderRedirect = () => {
     if (this.state.redirect) {
-      return <Redirect to='/app' />
+      return <Redirect to='/step' />
     }
   }
 

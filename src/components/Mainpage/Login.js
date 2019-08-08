@@ -36,7 +36,7 @@ class Login extends React.Component {
   }
   renderRedirect = () => {
     if (this.state.redirect) {
-      return <Redirect to='/app' />
+      return <Redirect to='/app/' />
     }
   }
 

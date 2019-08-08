@@ -1,9 +1,3 @@
-const isAuthen = ()=>{
-    const token = window.localStorage.getItem('@FoodPlanet:token')
-    if(token !== null)
-      return true
-
-    return false
-}
-
+const isAuthen = ()=> !!localStorage.getItem('@FoodPlanet:token')
+   
 export default isAuthen;
