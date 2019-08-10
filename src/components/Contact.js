@@ -9,7 +9,7 @@ export default function Contact(){
             <section style={container}>
                 <div style={container2} >
                     <h2 style={{fontWeight:'bold',marginBottom: 14}}>Contato</h2>
-                    <img style={{height: 200,borderRadius:100,border: '5px solid #fff'}} src={require('./Information/Gituhb-perfil.jfif')}/>
+                    <img style={{height: 200,borderRadius:100,border: '5px solid #fff'}} src={require('./Information/Gituhb-perfil.jfif')} alt="imagem de perfil github"/>
                     <p style={{color: '#FFF',fontSize: 18}}>Esse projeto foi feito apenas para aprender</p>
                     <p style={{color: '#FFF',fontSize: 18}}>Gabriel <a style={{color:'#0BA7F4',fontSize:18}} href="https://github.com/Gabriel-ved">Github</a></p>
                 </div>
