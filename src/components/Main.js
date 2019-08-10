@@ -1,8 +1,8 @@
 import React from 'react';
-import Nav from './Mainpage/Nav.js';
 import Login from './Mainpage/Login';
 import Jumpbox from './Mainpage/Jumpbox';
 import Footer from './Mainpage/Footer';
+import Nav from './Mainpage/Nav.js';
 import './Mainpage/caraio.css'
 
 class Main extends React.Component {

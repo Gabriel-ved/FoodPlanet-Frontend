@@ -1,6 +1,8 @@
 import React from 'react';
 import Aplication from './components/Aplication.js';
 import Main from './components/Main.js';
+import Information from './components/Information.js';
+import Contact from './components/Contact.js';
 import StepRegistration from './components/StepRegistration.js'
 import isAuthen from './auth';
 import {BrowserRouter,Route,Switch,Redirect} from 'react-router-dom';
@@ -19,6 +21,8 @@ const Routes =()=>(
         <Switch>
             <Route exact path='/' component={Main} />
             <Route exact path='/step' component={StepRegistration}/>
+            <Route exact path='/information' component={Information} />
+            <Route exact path='/contact' component={Contact} />
             
             <PrivateRoute path='/app/:page?' component={Aplication}/>
             <PrivateRoute path='/details/:id?' component={Aplication}/>

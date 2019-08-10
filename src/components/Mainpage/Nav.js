@@ -6,14 +6,14 @@ class Nav extends React.Component {
     return (
       <div>
         <header className="header">
-        <a href="google.com"><img id="img" src={require('./a.png')} alt=""/></a>
+        <a href="/"><img id="img" src={require('./a.png')} alt=""/></a>
           <nav>
             <ul className="menu">
               <li>
-                <a href="google.com">Informações</a>
+                <a href="/information">Informações</a>
               </li>
               <li>
-                <a href="google.com">Contato</a>
+                <a href="/contact">Contato</a>
               </li>
             </ul>
           </nav>
