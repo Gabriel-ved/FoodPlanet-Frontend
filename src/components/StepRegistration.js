@@ -1,15 +1,19 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
-import api from '../services/api'
+import api from '../services/api';
+import './Mainpage/caraio.css';
 import './StepRegistration/css/style.css';
+import Footer from './Mainpage/Footer';
+import {Redirect} from 'react-router-dom';
 
 const backg={
-    background:'#D15858',
+    background:'#595959',
     borderRadius:'10px',
     textAlign:'center'
 }
 const pagBack={
-    background:'#FAD8D6'
+	backgroundColor: 'transparent',
+	height: 740,
 }
 const tamanhoForm={
 	width:'500px',
@@ -19,9 +23,8 @@ const aruButon={
 	padding:'0',
 	margin: '0'
 }
-let imageUrl = null;
 const dropImage={
-	border: '5px solid #ddd',
+	border: '5px solid #FFF',
 	borderRadius: '50%',
 	cursor: 'pointer',
 	transition: 'height 0.2s ease',
@@ -30,30 +33,40 @@ const dropImage={
 	padding: '30px 20px',
 	margin: '8px 38%',
 	color:'white',
-	backgroundImage: `url(${imageUrl})`,
+	backgroundColor: "#A5A5A5",
 	backgroundRepeat: 'no-repeat',
 	backgroundSize: 'cover',
-	backgroundPosition: '50% 50%'
+	backgroundPosition: '50% 50%',
+	fontWeight: 'bold',
 }
 
 
 
 
 class StepRegistration extends React.Component {
+
+	
 	constructor(props){
 		super(props)
 		this.state={
-		arquivo:null,
+		arquivo:{
+			file: '',
+			name: ''
+		},
+		url:null,
 		rua:'',
 		estado:'',
 		cidade:'',
 		cep:'',
+		redirect:false
 	}
 	this.handleUpload = this.handleUpload.bind(this);	
+	this.handleForm = this.handleForm.bind(this);	
 	this.handleChange = this.handleChange.bind(this);
 	this.handleChange2 = this.handleChange.bind(this);
 	this.handleChange3 = this.handleChange.bind(this);
 	this.handleChange4 = this.handleChange.bind(this);
+	this.redirect = this.redirect.bind(this);
 	}
 	
 	handleUpload = async (file) =>{
@@ -63,16 +76,29 @@ class StepRegistration extends React.Component {
 				name:file[0].name
 			}
 		})
+
 		const data = new FormData();
 		data.append('file',this.state.arquivo.file,this.state.arquivo.name)
-
-		await api.put('/account/', data)
+		//criar rota para "post" para mandar imagem pro backend
+		const response = await api.post('/account/', data)
+		const { url } = response.data;
+		this.setState({url})
 	}
-	handleForm = async () =>{
+	 async handleForm (){
 		await api.put('/account/', {
-			
+			local:{
+				street:this.state.rua,
+				City:this.state.cidade,
+				state:this.state.estado,
+				cep:this.state.cep
+			}
 		})
+		this.setState({redirect:true})
 	}
+	redirect(){
+		if(this.state.redirect) return <Redirect to='/app/' />
+	}
+
 	handleChange(e) {
 		this.setState({ rua: e.target.value });
 	}
@@ -91,40 +117,42 @@ class StepRegistration extends React.Component {
 render(){
     return (
     <div className="StepRegistration">
-      <div class="page-content" style={pagBack}>
-		<div class="form-v10-content" style={tamanhoForm}>
-			<form class="form-detail" action="#" method="post" id="myform">
-				<div class="form-right" style={backg}>
+      <div className="page-content" style={pagBack}>
+		<div className="form-v10-content" style={tamanhoForm}>
+			<div className="form-detail">
+				<div className="form-right" style={backg}>
 					<h2>Detalhes da conta</h2>
 					<Dropzone accept="image/*" onDropAccepted={this.handleUpload}>
 						{({getRootProps,getInputProps,isDragActive,isDragReject})=>(
 							<div 
 							{...getRootProps()}
-							style={dropImage}>
+							style={{...dropImage,backgroundImage: `url(${this.state.url})`}}>
 								<input {...getInputProps()}/>
-								<p></p>coloque sua foto
+								{this.state.url? <p></p> : (<p style={{color:'#fff',fontSize: 16}}>Sua foto aqui</p>) }
 							</div>
 						)}
 					</Dropzone>
-					<div class="form-row">
-						<input type="text" onChange={this.handleChange} name="Rua" class="street" id="street" placeholder="Rua" required/>
+					<div className="form-row">
+						<input type="text" onChange={this.handleChange} className="street" placeholder="Rua"/>
 					</div>
-					<div class="form-row">
-						<input type="text" onChange={this.handleChange} name="Cidade" class="additional" id="additional" placeholder="Cidade" required/>
+					<div className="form-row">
+						<input type="text" onChange={this.handleChange} className="additional" placeholder="Cidade"/>
 					</div>
-                    <div class="form-row">
-						<input type="text" onChange={this.handleChange} name="Estado" class="additional" placeholder="Estado" required/>
+                    <div className="form-row">
+						<input type="text" onChange={this.handleChange} className="additional" placeholder="Estado"/>
 					</div>
-						<div class="form-row form-row-1">
-							<input type="text" onChange={this.handleChange} name="Cep" class="zip" id="zip" placeholder="CEP" required/>
+						<div className="form-row form-row-1">
+							<input type="text" onChange={this.handleChange} className="zip" placeholder="CEP"/>
 						</div>
-					<div class="form-row-last" style={aruButon}>
-						<input type="submit" name="register" class="register" value="Registrar"/>
+						{this.redirect()}
+					<div className="form-row-last" style={aruButon}>
+						<input type="submit" onClick={this.handleForm} className="register" value="Registrar"/>
 					</div>
 				</div>
-			</form>
+			</div>
 		</div>
 	</div>
+	<Footer/>
     </div>
   );
   }
