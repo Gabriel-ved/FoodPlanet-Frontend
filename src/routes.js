@@ -19,7 +19,12 @@ const Routes =()=>(
         <Switch>
             <Route exact path='/' component={Main} />
             <Route exact path='/step' component={StepRegistration}/>
+            
             <PrivateRoute path='/app/:page?' component={Aplication}/>
+            <PrivateRoute path='/details/:id?' component={Aplication}/>
+            <PrivateRoute path='/car' component={Aplication}/>
+            <PrivateRoute path='/account' component={Aplication}/>
+            <PrivateRoute path='/dashboard' component={Aplication}/>
         </Switch>
     </BrowserRouter>
 )

@@ -37,9 +37,8 @@ class Register extends React.Component {
   signIn = async (e) => {
     e.preventDefault();
     try {
-      var response = "";
       if(this.state.client === true){
-        response = await api.post('/register', {
+        const response = await api.post('/register', {
           name: this.state.name,
           cpf: this.state.text,
           password: this.state.password
@@ -47,12 +46,8 @@ class Register extends React.Component {
         const { client, token } = await response.data
         await window.localStorage.setItem('@FoodPlanet:token', token);
         await window.localStorage.setItem('@FoodPlanet:user', JSON.stringify(client));
-       
-
-
       }else{
-        
-        response = await api.post('/register', {
+        const response = await api.post('/register', {
           name: this.state.name,
           cnpj: this.state.text,
           password: this.state.password
@@ -60,18 +55,10 @@ class Register extends React.Component {
         const { store, token } = await response.data
         await window.localStorage.setItem('@FoodPlanet:token', token);
         await window.localStorage.setItem('@FoodPlanet:store', JSON.stringify(store));
-        
-
-
-
       }
-
-
       this.setState({redirect:true})
-    } catch (response) {
-
-      this.setState({ errorM: JSON.stringify(response) })
-
+    } catch (err) {
+      this.setState({ errorM: JSON.stringify(err) })
     }
   }
 
@@ -95,12 +82,9 @@ class Register extends React.Component {
   render() {
     return (
       <div className="Register">
-        <div className="form">
-          <div className="limiter">
-            <div className="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
               <form className="login100-form validate-form">
 
-                <span className="login100-form-title p-b-49">Registrar</span>
+                <span style={{paddingRight:34}} className="login100-form-title p-b-49">Registrar</span>
                 <div className="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
                   <span className="label-input100">Nome</span>
                   <input className="input100" type="text" name="username"
@@ -113,7 +97,7 @@ class Register extends React.Component {
                   <span className="label-input100">{this.state.label}</span>
                   <input className="input100" type="text" name="username"
                   onChange={this.handleChange}
-                  value={this.state.text} placeholder="Coloque o nome " />
+                  value={this.state.text} placeholder={`Coloque o ${this.state.label}`} />
                   <span className="focus-input100"></span>
                 </div>
 
@@ -121,7 +105,7 @@ class Register extends React.Component {
                   <span className="label-input100">Senha</span>
                   <input className="input100" type="password" name="pass"
                   onChange={this.handleChange2}
-                  value={this.state.password}  placeholder="coloque sua senha"/>
+                  value={this.state.password}  placeholder="Coloque sua senha"/>
                   <span className="focus-input100"></span>
                 </div>
 
@@ -143,11 +127,8 @@ class Register extends React.Component {
                     </div>
                   </div>
               </form>
+              {!!this.state.errorM && <p>{this.state.errorM.message}</p>}
             </div>
-          </div>
-        </div>
-            {!!this.state.errorM && <p>{this.state.errorM.message}</p>}
-      </div>
     );
   }
 }
