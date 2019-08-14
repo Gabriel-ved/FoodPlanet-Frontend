@@ -1,64 +1,65 @@
-import React from 'react';
-import api from '../../services/api.js'
-import './style.css'
+import React,{ useState,useEffect } from 'react';
+import api from '../../services/api.js';
 
-class ListStores extends React.Component {
-  constructor(props){
-    super(props)
-    this.state ={
-      stores:[],
-      products:[],
-      errorM: null,
-      totalpages:0,
-    }
-    this.loadData = this.loadData.bind(this);
-  }
-  async loadData(page){
+
+import { useDispatch,useSelector } from 'react-redux';
+
+export default function ListStores (props) {
+  const [stores,setStores] = useState([]);
+  const [products,setProducts] = useState([]);
+  const [errorM,setError] = useState(null);
+  const [totalpages,setTotalpages] = useState([]);
+  const dispatch = useDispatch();
+  const account = useSelector(state=>state.account)
+
+  async function loadData(page){
     try{
       const response = await api.get('/stores')
       const {stores} = response.data;
-      this.setState({stores})
+      const storesTop = stores.slice(0,3)
+      setStores(storesTop);
 
       const respo = await api.get(`/products?page=${page}`)
       const products = respo.data.docs;
-      const totalpages = respo.data.pages;
-      this.setState({products})
-      this.setState({totalpages})
-      console.log(products)
+      const pages = respo.data.pages;
+      const totalpages = [pages]
+      setProducts(products)
+      setTotalpages(totalpages)
     }catch(response){
-      this.setState({errorM:JSON.stringify(response)})
+      setError(JSON.stringify(response))
     }
   }
-
-  async componentDidMount(prevProps) {
-      const { page } = this.props.match.params;
-      this.loadData(page);
+    useEffect(()=>{
+      const { page } = props.match.params;
+      loadData(page);
+    },[props]) 
     
-  }
-  
+    function handleCar(car){
+      dispatch({type:'ADD_PROD',product:car})
+      console.log(account)
+    }
 
-  render(){
     return (
     <div className="stores">
       <div className="listStoress">
         
-          {this.state.stores.map(stores => (
+          {stores.map((stores) => (
               <div  key={stores._id}>
-                  <button type="button" className="btn btn-primary">{stores.name}</button>
+                  <button type="button" className="btn btn-secondary">{stores.name}</button>
               </div>
             ))}
         </div>
 
           <div className="listProducts">
             
-            {this.state.products.map(products=>(
-                  <div  key={products._id}>
-                      <div className="card bg-dark text-white">
-                      <img src={products.url} class="card-img" alt="..."/>
+            {products.map(product=>(
+                  <div  key={product._id}>
+                      <div className="card text-center bg-dark text-white">
+                      <img src={product.url} style={{width: '887'}} className="card-img" alt="..."/>
                           <div className="card-img-overlay">
-                            <h5 className="card-title">{products.name}</h5>
-                            <p className="card-text">{products.value}</p>
-                            <p className="card-text"><small className="text-muted">vendido por: </small></p>
+                            <h5 className="card-title">{product.name}</h5>
+                            <p className="card-text">{product.value}</p>
+                            <button onClick={()=>handleCar(product)} className="btn btn-success">adicionar</button>
                           </div>
                       </div>
                     </div>
@@ -67,15 +68,13 @@ class ListStores extends React.Component {
 
           <nav aria-label="Page navigation example">
           <ul className="pagination justify-content-center">
+
             <li className="page-item"><a className="page-link" href="1">1</a></li>
             <li className="page-item"><a className="page-link" href="2">2</a></li>
             <li className="page-item"><a className="page-link" href="3">3</a></li>
         </ul>
         </nav>
-      {!!this.state.errorM && <p>{this.state.errorM}</p>}
+      {!!errorM && <p>{errorM}</p>}
     </div>
   );
-  }
 }
-
-export default ListStores;

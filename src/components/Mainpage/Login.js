@@ -1,100 +1,92 @@
-import React from 'react';
+import React,{useState} from 'react';
 import api from '../../services/api';
 import './css/main.css';
 import './css/util.css';
-import './caraio.css';
 import {Redirect} from 'react-router-dom';
 import Register from './Register';
 
-class Login extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      text: '',
-      password: '',
-      label:'CPF',
-      client:true,
-      errorM: null,
-      registrar:false,
-      redirect: false
-    }
-    this.handleChange = this.handleChange.bind(this);
-    this.handleChange2 = this.handleChange2.bind(this);
-    this.clientAccount = this.clientAccount.bind(this);
-    this.storeAccount = this.storeAccount.bind(this);
-    this.handleLogin = this.handleLogin.bind(this);
-    this.handleRegister = this.handleRegister.bind(this);
-    this.signIn = this.signIn.bind(this);
-  }
+import { useDispatch } from 'react-redux';
 
-  clientAccount(e){
+export default function Login(){
+
+    const [text,setText] = useState('');
+    const [password,setPassword] = useState('');
+    const [label,setLabel] = useState('CPF');
+    const [client,setClient] = useState(true);
+    const [errorM,setError] = useState(null);
+    const [redirect,setRedirect] = useState(false);
+    const [registrar,setRegistrar] = useState(false);
+    const dispatch = useDispatch();
+
+  function clientAccount(e){
     e.preventDefault();
-    this.setState({client:true,label:"CPF"})
+    setClient(true)
+    setLabel('CPF')
   }
-  storeAccount(e){
+  function storeAccount(e){
     e.preventDefault();
-    this.setState({client:false,label:"CNPJ"})
+    setClient(false)
+    setLabel('CNPJ')
   }
 
 
-  signIn = async (e) => {
+  async function signIn (e){
     e.preventDefault();
     try {
-      if(this.state.client === true){
+      if(client === true){
         const response = await api.post('/auth', {
-        cpf: this.state.text,
-        password: this.state.password
+        cpf: text,
+        password: password
         })
         const { clientUser, token } = await response.data
         await window.localStorage.setItem('@FoodPlanet:token', token);
         await window.localStorage.setItem('@FoodPlanet:user', JSON.stringify(clientUser));
-        
+        dispatch({type:'ADD_ACCOUNT',account:clientUser})
       }else{
         const response = await api.post('/auth', {
-          cnpj: this.state.text,
-          password: this.state.password
+          cnpj: text,
+          password: password
           })
           const { storeUser, token } = await response.data
           await window.localStorage.setItem('@FoodPlanet:token', token);
           await window.localStorage.setItem('@FoodPlanet:user', JSON.stringify(storeUser));
+          dispatch({type:'ADD_ACCOUNT',account:storeUser})
       }
-      this.setState({redirect:true})
+      setRedirect(true)
     } catch (response) {
-      this.setState({ errorM: JSON.stringify(response) })
+      setError(JSON.stringify(response))
     }
   }
-  renderRedirect = () => {
-    if (this.state.redirect) {
+  function renderRedirect(){
+    if (redirect) {
       return <Redirect to='/app/' />
     }
   }
 
-
-  handleChange(e) {
-    this.setState({ text: e.target.value });
+  function handleChange(e) {
+    setText(e.target.value)
   }
-  handleChange2(e) {
-    this.setState({ password: e.target.value });
+  function handleChange2(e) {
+    setPassword(e.target.value)
   }
-  handleLogin(e){
+  function handleLogin(e){
     e.preventDefault();
-    this.setState({registrar:false})
+    setRegistrar(false)
   }
-  handleRegister(e){
+  function handleRegister(e){
     e.preventDefault();
-    this.setState({registrar:true})
+    setRegistrar(true)
   }
 
-  render() {
     return (
       <div className="login">
         <div className="form">
           <div className="limiter">
             <div className="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-              { this.state.registrar ?
+              { registrar ?
                 (
                   <div>
-                    <button style={{float: 'left'}} onClick={this.handleLogin}><img style={{height:35}}src="https://img.icons8.com/ios/50/000000/back--v1.png" alt="botão voltar para o Login"/></button>
+                    <button style={{float: 'left'}} onClick={handleLogin}><img style={{height:35}}src="https://img.icons8.com/ios/50/000000/back--v1.png" alt="botão voltar para o Login"/></button>
                     <Register/>
                   </div>
                 )
@@ -103,31 +95,31 @@ class Login extends React.Component {
                 <form className="login100-form validate-form">
                   <span className="login100-form-title p-b-49">Login</span>
                   <div className="wrap-input100 validate-input m-b-23" data-validate="Username is required">
-                    <span className="label-input100">{this.state.label}</span>
+                    <span className="label-input100">{label}</span>
                     <input className="input100" type="text" name="username"
-                    onChange={this.handleChange}
-                    value={this.state.text} placeholder={`Coloque seu ${this.state.label}`} />
+                    onChange={handleChange}
+                    value={text} placeholder={`Coloque seu ${label}`} />
                     <span className="focus-input100"></span>
                   </div>
 
                   <div className="wrap-input100 validate-input" data-validate="Password is required">
                     <span className="label-input100">Senha</span>
                     <input className="input100" type="password" name="pass"
-                    onChange={this.handleChange2}
-                    value={this.state.password}  placeholder="Coloque sua senha"/>
+                    onChange={handleChange2}
+                    value={password}  placeholder="Coloque sua senha"/>
                     <span className="focus-input100"></span>
                   </div>
-                  {this.renderRedirect()}
+                  {renderRedirect()}
                   <div className="text-right p-t-8 p-b-31">
                     <a href=".">Esqueceu a senha?</a>
                   </div>
 
                   <div className="">
                     <div className="btn-group btn-group-toggle d-flex m-3 justify-content-between" data-toggle="buttons">
-                      <label className="btn btn-secondary active" onClick={this.clientAccount} >
+                      <label className="btn btn-secondary active" onClick={clientAccount} >
                         <input type="radio" name="options" id="option1" autoComplete="off" defaultChecked/> Client
                       </label>
-                      <label className="btn btn-secondary" onClick={this.storeAccount}>
+                      <label className="btn btn-secondary" onClick={storeAccount}>
                         <input type="radio" name="options" id="option2"  autoComplete="off"/> Store
                       </label>
                     </div>
@@ -136,12 +128,12 @@ class Login extends React.Component {
                   <div className="container-login100-form-btn">
                     <div className="wrap-login100-form-btn">
                       <div className="login100-form-bgbtn"></div>
-                        <button className="login100-form-btn"  onClick={this.signIn} >Entrar</button>
+                        <button className="login100-form-btn"  onClick={signIn} >Entrar</button>
                       </div>
                     </div>
 
                     <div className="flex-col-c p-t-155">
-                      <a onClick={this.handleRegister} href='.' className="txt2">Sign Up</a>
+                      <a onClick={handleRegister} href='.' className="txt2">Sign Up</a>
                     </div>
                 </form>
                 )
@@ -150,10 +142,7 @@ class Login extends React.Component {
             </div>
           </div>
         </div>
-            {!!this.state.errorM && <p>{this.state.errorM.message}</p>}
+            {!!errorM && <p>{errorM.message}</p>}
       </div>
     );
-  }
 }
-
-export default Login;

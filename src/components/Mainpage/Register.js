@@ -1,85 +1,85 @@
-import React from 'react';
+import React,{useState} from 'react';
 import api from '../../services/api';
 import './css/main.css';
 import './css/util.css';
-import './caraio.css';
 import {Redirect} from 'react-router-dom';
 
-class Register extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      name:'',
-      text: '',
-      password: '',
-      label:'CPF',
-      client:true,
-      errorM: null,
-      redirect: false
-    }
-    this.handleChange = this.handleChange.bind(this);
-    this.handleChange2 = this.handleChange2.bind(this);
-    this.handleChange3 = this.handleChange3.bind(this);
-    this.clientAccount = this.clientAccount.bind(this);
-    this.storeAccount = this.storeAccount.bind(this);
-    this.signIn = this.signIn.bind(this);
+import { useDispatch } from 'react-redux';
+
+export default function Register () {
+  const [name,setName] = useState('');
+  const [text,setText] = useState('');
+  const [password,setPassword] = useState('');
+  const [label,setLabel] = useState('CPF');
+  const [client,setClient] = useState(true);
+  const [errorM,setError] = useState(null);
+  const [redirect,setRedirect] = useState(false);
+
+  function clientAccount(e){
+    e.preventDefault();
+    setClient(true)
+    setLabel('CPF')
+  }
+  function storeAccount(e){
+    e.preventDefault();
+    setClient(false)
+    setLabel('CNPJ')
   }
 
-  clientAccount(e){
-    e.preventDefault();
-    this.setState({client:true,label:"CPF"})
-  }
-  storeAccount(e){
-    e.preventDefault();
-    this.setState({client:false,label:"CNPJ"})
+  const dispatch = useDispatch();
+
+  function dispa(account){
+    dispatch({ type: 'ADD_ACCOUNT', account})
   }
 
-  signIn = async (e) => {
+
+  async function signIn (e){
     e.preventDefault();
     try {
-      if(this.state.client === true){
+      if(client === true){
         const response = await api.post('/register', {
-          name: this.state.name,
-          cpf: this.state.text,
-          password: this.state.password
+          name: name,
+          cpf: text,
+          password: password
         })
         const { client, token } = await response.data
         await window.localStorage.setItem('@FoodPlanet:token', token);
         await window.localStorage.setItem('@FoodPlanet:user', JSON.stringify(client));
+        dispa(client)
       }else{
         const response = await api.post('/register', {
-          name: this.state.name,
-          cnpj: this.state.text,
-          password: this.state.password
+          name: name,
+          cnpj: text,
+          password: password
         })
         const { store, token } = await response.data
         await window.localStorage.setItem('@FoodPlanet:token', token);
         await window.localStorage.setItem('@FoodPlanet:store', JSON.stringify(store));
+        dispa(store)
       }
-      this.setState({redirect:true})
+      setRedirect(true)
     } catch (err) {
-      this.setState({ errorM: JSON.stringify(err) })
+      setError(JSON.stringify(err))
     }
   }
 
-  renderRedirect = () => {
-    if (this.state.redirect) {
+  function renderRedirect(){
+    if (redirect) {
       return <Redirect to='/step' />
     }
   }
 
 
-  handleChange(e) {
-    this.setState({ text: e.target.value });
+  function handleChange(e) {
+    setText(e.target.value)
   }
-  handleChange2(e) {
-    this.setState({ password: e.target.value });
+  function handleChange2(e) {
+    setPassword(e.target.value)
   }
-  handleChange3(e) {
-    this.setState({ name: e.target.value });
+  function handleChange3(e) {
+    setName(e.target.value)
   }
 
-  render() {
     return (
       <div className="Register">
               <form className="login100-form validate-form">
@@ -88,49 +88,48 @@ class Register extends React.Component {
                 <div className="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
                   <span className="label-input100">Nome</span>
                   <input className="input100" type="text" name="username"
-                  onChange={this.handleChange3}
-                  value={this.state.name} placeholder="Coloque seu nome" />
+                  onChange={handleChange3}
+                  value={name} placeholder="Coloque seu nome" />
                   <span className="focus-input100"></span>
                 </div>
 
                 <div className="wrap-input100 validate-input m-b-23" data-validate="CPF/CNPJ is reauired">
-                  <span className="label-input100">{this.state.label}</span>
+                  <span className="label-input100">{label}</span>
                   <input className="input100" type="text" name="username"
-                  onChange={this.handleChange}
-                  value={this.state.text} placeholder={`Coloque o ${this.state.label}`} />
+                  onChange={handleChange}
+                  value={text} placeholder={`Coloque o ${label}`} />
                   <span className="focus-input100"></span>
                 </div>
 
                 <div className="wrap-input100 validate-input" data-validate="Password is required">
                   <span className="label-input100">Senha</span>
                   <input className="input100" type="password" name="pass"
-                  onChange={this.handleChange2}
-                  value={this.state.password}  placeholder="Coloque sua senha"/>
+                  onChange={handleChange2}
+                  value={password}  placeholder="Coloque sua senha"/>
                   <span className="focus-input100"></span>
                 </div>
 
                 <div className="">
                   <div className="btn-group btn-group-toggle d-flex m-3 justify-content-between" data-toggle="buttons">
-                    <label className="btn btn-secondary active" onClick={this.clientAccount} >
+                    <label className="btn btn-secondary active" onClick={clientAccount} >
                       <input type="radio" name="options" id="option1" autoComplete="off" defaultChecked/> Client
                     </label>
-                    <label className="btn btn-secondary" onClick={this.storeAccount}>
+                    <label className="btn btn-secondary" onClick={storeAccount}>
                       <input type="radio" name="options" id="option2"  autoComplete="off"/> Store
                     </label>
                   </div>
                 </div>
-                {this.renderRedirect()}
+                {renderRedirect()}
                 <div className="container-login100-form-btn">
                   <div className="wrap-login100-form-btn">
                     <div className="login100-form-bgbtn"></div>
-                      <button className="login100-form-btn"  onClick={this.signIn} >registrar</button>
+                      <button className="login100-form-btn"  onClick={signIn} >registrar</button>
                     </div>
                   </div>
               </form>
-              {!!this.state.errorM && <p>{this.state.errorM.message}</p>}
+              {!!errorM && <p>{errorM.message}</p>}
             </div>
     );
-  }
 }
 
-export default Register;
+

@@ -21,3 +21,69 @@
   padding: 10px;
   width: auto;
 }
+.header1{
+  display: flex;
+  flex-wrap: wrap;
+  background-color: white;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 110px;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+}
+.Main1{
+  background-color: white;
+}
+.main2{
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+}
+.imgAccount{
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  border: 3px solid #FFF;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+}
+.account{
+  width: 50px;
+  height: 50px;
+}
+.car{
+  display: flex;
+  flex-direction: column;
+  justify-self: end;
+  align-self: center;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border: 2px solid white;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+  width: 240px;
+  height: 400px;
+}
+.lista{
+  margin-top: 5px;
+  margin-left: 5px;
+  height: 300px;
+}
+.btnLista{
+  display: flex;
+  align-self: center;
+
+}
+.btnLista{
+  background-color: whi;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: .25rem;
+  padding: 8px;
+  margin-bottom: 5px;
+}
+.btnLista button{
+  padding: 0 7px;
+}
+.btnCancelar{
+  border-right: 1px solid rgba(0,0,0,.125);
+  margin-left: 3px;
+}
+.btnFinalizar{
+  margin-right: 3px;
+}
