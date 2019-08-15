@@ -8,6 +8,35 @@
   grid-gap: 20px;
   justify-content: center;
 }
+.card{
+  height: 200px;
+}
+.cardes{
+  color: transparent;
+}
+.cardes button{
+  background-color: transparent;
+  color: transparent;
+  border: transparent;
+}
+.cardes p{
+  color: transparent
+}
+.cardes:hover button{
+  color:white;
+  background-color: #28a745;
+}
+.cardes:hover p{
+  color: whitesmoke;
+}
+.cardes:hover{
+  color:white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(175, 175, 175);
+}
 .listStoress{
   display: grid;
   grid-template-columns: 120px 120px 120px;
@@ -34,8 +63,8 @@
   background-color: white;
 }
 .main2{
-  display: grid;
-  grid-template-columns: 4fr 1fr;
+  display: flex;
+  justify-content: space-around;
 }
 .imgAccount{
   width: 40px;
@@ -53,37 +82,99 @@
   flex-direction: column;
   justify-self: end;
   align-self: center;
+  align-items: center;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
   border: 2px solid white;
   box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
-  width: 240px;
+  width: 280px;
   height: 400px;
+  animation: slice-in 270ms ease-in;
 }
 .lista{
   margin-top: 5px;
   margin-left: 5px;
   height: 300px;
+  width: 260px;
+}
+.list-group{
+  height: 300px !important;
+}
+.prevProduct{
+  border: 1px solid rgba(0,0,0,.125);
+  width: 40px;
+  height: 40px;
 }
 .btnLista{
   display: flex;
   align-self: center;
-
 }
 .btnLista{
   background-color: whi;
   border: 1px solid rgba(0,0,0,.125);
   border-radius: .25rem;
-  padding: 8px;
   margin-bottom: 5px;
+  height: 45px;
 }
 .btnLista button{
-  padding: 0 7px;
+  padding: 0 10px;
 }
 .btnCancelar{
   border-right: 1px solid rgba(0,0,0,.125);
-  margin-left: 3px;
+  padding: 5px;
 }
 .btnFinalizar{
-  margin-right: 3px;
+  padding: 5px;
+}
+.btnCancelar:hover{
+  border-top-left-radius: .25rem;
+  border-bottom-left-radius: .25rem;
+  background-color: rgb(192, 81, 81);
+}
+.btnFinalizar:hover{
+  border-top-right-radius: .25rem;
+  border-bottom-right-radius: .25rem;
+  background-color: #28a745;
+}
+.car p{
+  font-size: 17px;
+}
+.aparecer{
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  animation: slice-in 270ms ease-in;
+}
+.desaparecer > .car{
+  display: none;
+  animation: slice-out 270ms ease-in;
+}
+.desaparecer{
+  animation: slice-out 270ms ease-out;
+}
+.carExcluir{
+  padding: 5px;
+  border-left: 1px solid rgb(165, 85, 85);
+}
+.carExcluir:hover{
+  background-color: rgb(165, 85, 85);
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  
+}
+
+@keyframes slice-in{
+  0%{
+    transform: translateX(140px);
+  }
+  100%{
+    transform: translateX(0px);
+  }
+}
+@keyframes slice-out{
+  0%{
+    transform: translateX(-149px);
+  }
+  100%{
+    transform: translateX(0px);
+  } 
 }

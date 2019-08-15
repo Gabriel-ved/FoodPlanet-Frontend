@@ -1,12 +1,23 @@
 import React,{useState,useEffect} from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector,useDispatch} from 'react-redux';
 
 export default function Car(){
-    const products = useSelector(state=>state.products)
+    const products = useSelector(state=>state.products);
+    const totalredux = useSelector(state=>state.total);
+    const dispatch = useDispatch();
     const [product,setProduct] = useState([]);
+    const [total,setTotal] = useState(0);
     useEffect(()=>{
         setProduct(products)
-    },[products])
+        setTotal(totalredux)
+    },[products,totalredux])
+
+    function cancelarProduto(product){
+        dispatch({type:"REMOVE_PROD",product})
+    }
+    function cancelarCompra(){
+        dispatch({type:"REMOVEALL_PROD"})
+    }
     return(
         <div className="car">
             <div className="lista">
@@ -14,15 +25,18 @@ export default function Car(){
                 
                 {product.map(product=>(
                     <li key={product._id} className="list-group-item d-flex justify-content-between align-items-center">
-                    {product.name}
+                        <img className="prevProduct" src={product.url} alt=""/>
+                        {product.name}
+                        <button className="carExcluir" onClick={()=>cancelarProduto(product)}>excluir</button>
                     </li> 
                 ))}
                 
                 </ul>
             </div>
+            <p>Total: R${total}</p>
             <div className="btnLista">
-                <button className="btnCancelar">Cancelar</button>
-                <button calssName="btnFinalizar">Finalizar</button> 
+                <button onClick={cancelarCompra} className="btnCancelar">Cancelar</button>
+                <button className="btnFinalizar">Finalizar</button> 
             </div>
            
         </div>

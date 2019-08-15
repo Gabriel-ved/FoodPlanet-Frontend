@@ -4,7 +4,6 @@ import {useSelector} from 'react-redux';
 
 export default function Nav(){
     const account = useSelector(state=>state.account)
-    console.log(account)
     return(
         <div>
         <header className="header1">
@@ -20,7 +19,7 @@ export default function Nav(){
               <li>
                 <div className="btn-group">
                     <button type="button" className="account" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img className='imgAccount' src={account.url? account.url : require('./imagens/default.png')} alt='imagem da conta'/>
+                        <img className='imgAccount' src={account ? account.url : require('./imagens/default.png')} alt='imagem da conta'/>
                     </button>
                     <div className="dropdown-menu">
                         <a className="dropdown-item" href=".">Conta</a>

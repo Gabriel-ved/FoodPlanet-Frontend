@@ -2,7 +2,7 @@ import React,{ useState,useEffect } from 'react';
 import api from '../../services/api.js';
 
 
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 export default function ListStores (props) {
   const [stores,setStores] = useState([]);
@@ -10,7 +10,6 @@ export default function ListStores (props) {
   const [errorM,setError] = useState(null);
   const [totalpages,setTotalpages] = useState([]);
   const dispatch = useDispatch();
-  const account = useSelector(state=>state.account)
 
   async function loadData(page){
     try{
@@ -34,9 +33,9 @@ export default function ListStores (props) {
       loadData(page);
     },[props]) 
     
-    function handleCar(car){
-      dispatch({type:'ADD_PROD',product:car})
-      console.log(account)
+    function handleCar(product){
+      dispatch({type:'ADD_PROD',product})
+
     }
 
     return (
@@ -54,11 +53,11 @@ export default function ListStores (props) {
             
             {products.map(product=>(
                   <div  key={product._id}>
-                      <div className="card text-center bg-dark text-white">
-                      <img src={product.url} style={{width: '887'}} className="card-img" alt="..."/>
-                          <div className="card-img-overlay">
+                      <div className="card text-center text-white ">
+                      <img src={product.url ? product.url : require('./imagens/product-default.jpg')} style={{width: '887'}} className="card-img" alt="..."/>
+                          <div className="card-img-overlay cardes">
                             <h5 className="card-title">{product.name}</h5>
-                            <p className="card-text">{product.value}</p>
+                            <p className="card-text">Preço:R${product.value}</p>
                             <button onClick={()=>handleCar(product)} className="btn btn-success">adicionar</button>
                           </div>
                       </div>
