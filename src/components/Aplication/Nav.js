@@ -1,13 +1,18 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
+import {Link} from 'react-router-dom';
 
 
 export default function Nav(){
     const account = useSelector(state=>state.account)
+
+  
     return(
         <div>
         <header className="header1">
-        <a href="/"><img id="img" src={require('./a.png')} alt=""/></a>
+          <Link to="/app">
+            <a href="/"><img id="img" src={require('./a.png')} alt=""/></a>
+          </Link>
           <nav>
             <ul className="menu">
               <li>

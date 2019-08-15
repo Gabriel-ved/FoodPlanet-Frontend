@@ -7,25 +7,34 @@ import './Aplication/style.css';
 import {useSelector} from 'react-redux';
 
 export default function Aplication (props){
-  const[carClass,setCarClass]=useState("");
+  const[carClass,setCarClass]=useState("defaultLay");
+  const[primeira,setPrimeira]=useState(0);
   const produtos = useSelector(state=>state.products)
   useEffect(()=>{
-    console.log(produtos)
-    if(produtos.length !== 0){
-      setCarClass('aparecer')
-    }else{
-      setCarClass('desaparecer')
+    setPrimeira(1)
+  },[]);
+  useEffect(()=>{
+    if(primeira !== 0){
+      if(produtos.length !== 0){
+        setCarClass('aparecer')
+      }else{
+        setCarClass('desaparecer')
+      }
     }
-  },[produtos]);
+  },[produtos,primeira]);
 
   return (
     <div className="Main1">
-        <Nav/>
-        <div className={`main2 ${carClass}`}>
+        <header>
+          <Nav/>
+        </header>
+        <section className={`main2 ${carClass}`}>
           <ListStores {...props}/>
           <Car/>
-        </div>
-        <Footer/>
+        </section>
+        <footer className="footer">
+          <Footer/>
+        </footer>        
     </div>
   );
 }

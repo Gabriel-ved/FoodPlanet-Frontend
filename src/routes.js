@@ -3,7 +3,8 @@ import Aplication from './components/Aplication.js';
 import Main from './components/Main.js';
 import Information from './components/Information.js';
 import Contact from './components/Contact.js';
-import StepRegistration from './components/StepRegistration.js'
+import StepRegistration from './components/StepRegistration.js';
+import Details from './components/Details';
 import isAuthen from './auth';
 import {BrowserRouter,Route,Switch,Redirect} from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -16,16 +17,27 @@ const PrivateRoute = props =>(
             <Redirect to={{pathname:'/',state:{from:props.location}}}/>
         )
 )
+
+//information done!
+//contact done!
+//main done!
+//step done!
+//app 90%
+//details 0%
+//car 0%
+//account 0%
+//dashboard 0%
+
 const Routes =()=>(
     <BrowserRouter>
         <Switch>
-            <Route exact path='/information' component={Information} />
+            <Route exact path='/information' component={Information}/>
             <Route exact path='/contact' component={Contact} />
             <Provider store={store}>
                 <Route exact path='/' component={Main} />
                 <Route exact path='/step' component={StepRegistration}/>
                 <PrivateRoute path='/app/:page?' component={Aplication}/>
-                <PrivateRoute path='/details/:id?' component={Aplication}/>
+                <PrivateRoute path='/details/:id?' component={Details}/>
                 <PrivateRoute path='/car' component={Aplication}/>
                 <PrivateRoute path='/account' component={Aplication}/>
                 <PrivateRoute path='/dashboard' component={Aplication}/>                

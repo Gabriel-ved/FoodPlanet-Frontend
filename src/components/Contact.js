@@ -4,8 +4,10 @@ import Nav from './Mainpage/Nav.js';
 
 export default function Contact(){
     return(
-        <div className="Information">
-            <Nav/>
+        <div className="Contact">
+            <header>
+                <Nav/>
+            </header>
             <section style={container}>
                 <div style={container2} >
                     <h2 style={{fontWeight:'bold',marginBottom: 14}}>Contato</h2>
@@ -14,7 +16,9 @@ export default function Contact(){
                     <p style={{color: '#FFF',fontSize: 18}}>Gabriel <a style={{color:'#0BA7F4',fontSize:18}} href="https://github.com/Gabriel-ved">Github</a></p>
                 </div>
             </section>
-            <Footer/>
+            <footer className="footer">
+                <Footer/>
+            </footer>
         </div>
     )
 }

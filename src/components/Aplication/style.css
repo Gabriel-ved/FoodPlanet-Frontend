@@ -1,5 +1,8 @@
 .stores{
-  padding:50px;
+  margin:30px;
+  padding: 20px;
+  border: 1px solid rgb(0, 0, 0,0.2);
+  border-radius: 10px;
 }
 .listProducts{
   display: grid;
@@ -22,6 +25,16 @@
 .cardes p{
   color: transparent
 }
+.cardes .LinkDetails{
+  color: transparent;
+}
+.cardes:hover .LinkDetails{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  color: white;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+}
 .cardes:hover button{
   color:white;
   background-color: #28a745;
@@ -36,6 +49,11 @@
   justify-content: space-between;
   align-items: center;
   background-color: rgb(175, 175, 175);
+}
+.LinkDetails{
+  width: 150px;
+  height: 100px;
+  
 }
 .listStoress{
   display: grid;
@@ -159,7 +177,9 @@
   background-color: rgb(165, 85, 85);
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
-  
+}
+.defaultLay .car{
+  display: none;
 }
 
 @keyframes slice-in{
@@ -177,4 +197,37 @@
   100%{
     transform: translateX(0px);
   } 
+}
+
+/* Details */
+.MainDetails{
+  background-color: white;
+}
+.mainDetails{
+  height: 600px;
+  display: flex;
+  justify-content: space-around;
+}
+.containerDetails img{
+  width: 350px;
+  height: 350px;
+  align-self: center;
+}
+.containerDetails{
+  border: 1px solid rgb(99, 97, 97,0.2);
+  border-radius: 20px;
+  padding: 30px;
+  display: flex;
+  align-self: center;
+  justify-content: space-around;
+  width: 800px;
+  height: 500px;
+}
+.textdetails{
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
 }

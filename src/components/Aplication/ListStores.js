@@ -1,5 +1,6 @@
 import React,{ useState,useEffect } from 'react';
 import api from '../../services/api.js';
+import {Link} from 'react-router-dom';
 
 
 import { useDispatch } from 'react-redux';
@@ -34,8 +35,9 @@ export default function ListStores (props) {
     },[props]) 
     
     function handleCar(product){
+      console.log("produto lista")
+      console.log(product)
       dispatch({type:'ADD_PROD',product})
-
     }
 
     return (
@@ -56,8 +58,12 @@ export default function ListStores (props) {
                       <div className="card text-center text-white ">
                       <img src={product.url ? product.url : require('./imagens/product-default.jpg')} style={{width: '887'}} className="card-img" alt="..."/>
                           <div className="card-img-overlay cardes">
-                            <h5 className="card-title">{product.name}</h5>
-                            <p className="card-text">Preço:R${product.value}</p>
+                            <Link to={`/details/${product._id}`}>
+                              <div className="LinkDetails">
+                                <h5 className="card-title">{product.name}</h5>
+                                <p className="card-text">Preço:R${product.value}</p>
+                              </div>
+                            </Link>
                             <button onClick={()=>handleCar(product)} className="btn btn-success">adicionar</button>
                           </div>
                       </div>

@@ -9,12 +9,16 @@ class Main extends React.Component {
 render(){
     return (
     <div className="Main">
-        <Nav/>
-        <div className="main">
+        <header>
+          <Nav/>
+        </header>
+        <section className="main">
           <Jumpbox/>
           <Login/>
-        </div>
-        <Footer/>
+        </section>
+        <footer className="footer">
+          <Footer/>
+        </footer>
     </div>
   );
   }

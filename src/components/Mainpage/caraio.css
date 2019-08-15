@@ -69,14 +69,14 @@ body{
     margin:50px;
 }
 
-footer{
+.footer{
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 10px 150px;
     background-color: rgba(66, 66, 66, 0.945);
 }
-footer p{
+.footer p{
     color: rgb(173, 172, 172)
 }
 

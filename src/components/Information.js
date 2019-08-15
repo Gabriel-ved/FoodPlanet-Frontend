@@ -5,7 +5,9 @@ import Nav from './Mainpage/Nav.js';
 export default function Information(){
     return(
         <div className="Information">
-            <Nav/>
+            <header>
+                <Nav/>
+            </header>
             <section style={container}>
                 <div style={container2} >
                     <h2 style={{fontWeight:'bold'}}>Informações</h2>
@@ -59,7 +61,9 @@ export default function Information(){
                     
                 </div>
             </section>
-            <Footer/>
+            <footer className="footer">
+                <Footer/>
+            </footer>
         </div>
     )
 }
