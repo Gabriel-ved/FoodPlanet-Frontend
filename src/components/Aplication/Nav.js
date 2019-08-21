@@ -1,17 +1,18 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 
 
 export default function Nav(){
-    const account = useSelector(state=>state.account)
-
-  
+    const account = JSON.parse(localStorage.getItem('@FoodPlanet:user'))
+    async function Sair(){
+      await window.localStorage.removeItem('@FoodPlanet:token');
+      await window.localStorage.removeItem('@FoodPlanet:user');
+    }
     return(
         <div>
         <header className="header1">
-          <Link to="/app">
-            <a href="/"><img id="img" src={require('./a.png')} alt=""/></a>
+          <Link to="/app/">
+            <img id="img" src={require('./a.png')} alt=""/>
           </Link>
           <nav>
             <ul className="menu">
@@ -27,9 +28,9 @@ export default function Nav(){
                         <img className='imgAccount' src={account ? account.url : require('./imagens/default.png')} alt='imagem da conta'/>
                     </button>
                     <div className="dropdown-menu">
-                        <a className="dropdown-item" href=".">Conta</a>
+                        <Link to="/account">Conta</Link>
                         <div className="dropdown-divider"></div>
-                        <a className="dropdown-item" href=".">Sair</a>
+                        <a onClick={Sair} className="dropdown-item" href="/">Sair</a>
                     </div>
                 </div>
               </li>

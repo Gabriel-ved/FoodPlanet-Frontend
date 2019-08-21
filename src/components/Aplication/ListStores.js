@@ -35,8 +35,6 @@ export default function ListStores (props) {
     },[props]) 
     
     function handleCar(product){
-      console.log("produto lista")
-      console.log(product)
       dispatch({type:'ADD_PROD',product})
     }
 

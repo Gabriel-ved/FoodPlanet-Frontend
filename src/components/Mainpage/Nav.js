@@ -1,18 +1,19 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 class Nav extends React.Component {
   render() {
     return (
       <div>
         <header className="header">
-        <a href="/"><img id="img" src={require('./a.png')} alt=""/></a>
+        <Link to="/"><img id="img" src={require('./a.png')} alt=""/></Link>
           <nav>
             <ul className="menu">
               <li>
-                <a href="/information">Informações</a>
+                <Link to="/information">Informações</Link>
               </li>
               <li>
-                <a href="/contact">Contato</a>
+                <Link to="/contact">Contato</Link>
               </li>
             </ul>
           </nav>

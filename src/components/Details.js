@@ -16,17 +16,13 @@ export default function Details(props){
     async function pegarProduto(id){
         try{
             const response = await api.get(`/products/${id}`)
-            console.log("pegando sv")
             const {product} = response.data;
             setProduto(product)
-            console.log("colocado")
         }catch(e){ 
             console.log("erro "+e)
         } 
     }
     function handleCar(product){
-        console.log("produto detalhe")
-        console.log(product)
         dispatch({type:'ADD_PROD',product})
       }
 
@@ -44,9 +40,7 @@ export default function Details(props){
                     </div>
                 </div>
             </section>
-            <footer className="footer">
                 <Footer/>
-            </footer>
         </div>
 
     );

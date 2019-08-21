@@ -4,8 +4,6 @@ import './css/main.css';
 import './css/util.css';
 import {Redirect} from 'react-router-dom';
 
-import { useDispatch } from 'react-redux';
-
 export default function Register () {
   const [name,setName] = useState('');
   const [text,setText] = useState('');
@@ -26,15 +24,10 @@ export default function Register () {
     setLabel('CNPJ')
   }
 
-  const dispatch = useDispatch();
-
-  function dispa(account){
-    dispatch({ type: 'ADD_ACCOUNT', account})
-  }
-
-
   async function signIn (e){
     e.preventDefault();
+    console.log(client)
+    console.log(name)
     try {
       if(client === true){
         const response = await api.post('/register', {
@@ -45,7 +38,6 @@ export default function Register () {
         const { client, token } = await response.data
         await window.localStorage.setItem('@FoodPlanet:token', token);
         await window.localStorage.setItem('@FoodPlanet:user', JSON.stringify(client));
-        dispa(client)
       }else{
         const response = await api.post('/register', {
           name: name,
@@ -55,7 +47,6 @@ export default function Register () {
         const { store, token } = await response.data
         await window.localStorage.setItem('@FoodPlanet:token', token);
         await window.localStorage.setItem('@FoodPlanet:store', JSON.stringify(store));
-        dispa(store)
       }
       setRedirect(true)
     } catch (err) {
@@ -69,9 +60,9 @@ export default function Register () {
     }
   }
 
-
   function handleChange(e) {
     setText(e.target.value)
+    console.log(text)
   }
   function handleChange2(e) {
     setPassword(e.target.value)
@@ -127,7 +118,7 @@ export default function Register () {
                     </div>
                   </div>
               </form>
-              {!!errorM && <p>{errorM.message}</p>}
+              {!!errorM && <p>{errorM}</p>}
             </div>
     );
 }

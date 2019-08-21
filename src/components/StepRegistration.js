@@ -4,7 +4,6 @@ import api from '../services/api';
 import './StepRegistration/css/style.css';
 import Footer from './Mainpage/Footer';
 import {Redirect} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
 import './Mainpage/caraio.css';
 
 const backg={
@@ -45,7 +44,6 @@ const dropImage={
 
 
 export default function StepRegistration (){
-		const dispatch = useDispatch();
 		const [url,setUrl]=useState(null)
 		const [rua,setRua]=useState('')
 		const [estado,setEstado]=useState('')
@@ -58,16 +56,17 @@ export default function StepRegistration (){
 		const data = new FormData();
 		data.append('file',file[0], file[0].name)
 		//criar rota para "post" para mandar imagem pro backend
-		const response = await api.post('/account/', data)
+		const response = await api.post('/account', data)
+		console.log(response.data)
 		const { url } = response.data;
 		setUrl(url)
-		dispatch({type:"ADD_ACCOUNT",account:response.data})
+		await window.localStorage.setItem('@FoodPlanet:user', JSON.stringify(response.data));
 	}
 	 async function handleForm (){
-		await api.put('/account/', {
+		await api.put('/account', {
 			local:{
 				street:rua,
-				City:cidade,
+				city:cidade,
 				state:estado,
 				cep:cep
 			}
@@ -96,6 +95,7 @@ export default function StepRegistration (){
 		<div className="form-v10-content" style={tamanhoForm}>
 			<div className="form-detail">
 				<div className="form-right" style={backg}>
+					<form>
 					<h2>Detalhes da conta</h2>
 					<Dropzone accept="image/*" onDropAccepted={handleUpload}>
 						{({getRootProps,getInputProps})=>(
@@ -108,26 +108,27 @@ export default function StepRegistration (){
 						)}
 					</Dropzone>
 					<div className="form-row">
-						<input type="text" onChange={handleChange} className="street" placeholder="Rua"/>
+						<input type="text" onChange={handleChange} className="street" placeholder="Rua" required/>
 					</div>
 					<div className="form-row">
-						<input type="text" onChange={handleChange3} className="additional" placeholder="Cidade"/>
+						<input type="text" onChange={handleChange3} className="additional" placeholder="Cidade" required/>
 					</div>
                     <div className="form-row">
-						<input type="text" onChange={handleChange2} className="additional" placeholder="Estado"/>
+						<input type="text" onChange={handleChange2} className="additional" placeholder="Estado" required/>
 					</div>
 						<div className="form-row form-row-1">
-							<input type="text" onChange={handleChange4} className="zip" placeholder="CEP"/>
+							<input type="text" onChange={handleChange4} className="zip" placeholder="CEP" required/>
 						</div>
 						{redirect()}
 					<div className="form-row-last" style={aruButon}>
-						<input type="submit" onClick={handleForm} className="register" value="Registrar"/>
+						<button  onClick={handleForm} className="register">Registrar</button>
 					</div>
+					</form>
 				</div>
 			</div>
 		</div>
 	</div>
-	<Footer/>
+		<Footer/>
     </div>
   );
   }

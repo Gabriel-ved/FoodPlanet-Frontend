@@ -16,9 +16,7 @@ export default function Contact(){
                     <p style={{color: '#FFF',fontSize: 18}}>Gabriel <a style={{color:'#0BA7F4',fontSize:18}} href="https://github.com/Gabriel-ved">Github</a></p>
                 </div>
             </section>
-            <footer className="footer">
                 <Footer/>
-            </footer>
         </div>
     )
 }

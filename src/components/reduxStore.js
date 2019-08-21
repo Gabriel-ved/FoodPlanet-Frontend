@@ -9,7 +9,7 @@ const INITIAL_STATE={
 function stores(state=INITIAL_STATE,action){
     switch(action.type){
         case 'ADD_PROD':
-            return  {...state,products:[...state.products,action.product],total:state.total + action.product.value}
+            return  {...state,products:[...state.products,action.product],total:state.total + action.product.value} 
         case 'ADD_ACCOUNT':
             return {...state,account: action.account}
         case 'REMOVE_PROD':

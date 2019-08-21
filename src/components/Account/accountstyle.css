@@ -1,0 +1,85 @@
+.Maincontainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 600px;
+}
+.Perfilcontainer{
+    border-radius: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.192);
+    width: 700px;
+    height: 480px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 5fr 1fr;
+    grid-template-areas: "h h"
+                        "f f"
+                        "l r"
+                        "b b";
+    justify-items: center;
+    align-items: center;
+}
+.Titulo{
+    grid-area: h;
+    margin: 20px 10px;
+}
+.leftcontainer{ 
+    grid-area: l;
+    width: auto;
+    height: 200px;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+    
+}
+.leftcontainer > input{
+    padding: 4px;
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.445)
+}
+.rightcontainer{
+    grid-area: r;
+    width: auto;
+    height: 200px;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.rightcontainer > input{
+    padding: 4px;
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.445)
+}
+.btnPerfil{
+    grid-area: b;
+    display: flex;
+    justify-self: stretch;
+    align-self: stretch;
+    justify-content: center;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.fotoPerfil{
+    grid-area: f;
+}
+.dropImage{
+    text-align: center;
+	border: 5px solid rgb(177, 177, 177);
+	border-radius: 50%;
+	cursor: pointer;
+	transition: height 0.2s ease;
+	width: 120px;
+	height: 120px;
+	padding: 30px 20px;
+	background-color: rgba(165, 165, 165, 0.288);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: 50% 50%;
+	font-weight: bold;
+}
+.dropImage > p{
+    color: rgb(121, 121, 121);
+}

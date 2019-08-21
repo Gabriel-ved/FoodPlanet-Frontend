@@ -61,9 +61,7 @@ export default function Information(){
                     
                 </div>
             </section>
-            <footer className="footer">
                 <Footer/>
-            </footer>
         </div>
     )
 }

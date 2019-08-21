@@ -16,9 +16,7 @@ render(){
           <Jumpbox/>
           <Login/>
         </section>
-        <footer className="footer">
           <Footer/>
-        </footer>
     </div>
   );
   }

@@ -9,6 +9,7 @@ import isAuthen from './auth';
 import {BrowserRouter,Route,Switch,Redirect} from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './components/reduxStore';
+import Account from './components/Account';
 
 const PrivateRoute = props =>(
        isAuthen() ? (
@@ -22,9 +23,9 @@ const PrivateRoute = props =>(
 //contact done!
 //main done!
 //step done!
-//app 90%
-//details 0%
-//car 0%
+//app 89%
+//details 99%
+//car 70%
 //account 0%
 //dashboard 0%
 
@@ -39,7 +40,7 @@ const Routes =()=>(
                 <PrivateRoute path='/app/:page?' component={Aplication}/>
                 <PrivateRoute path='/details/:id?' component={Details}/>
                 <PrivateRoute path='/car' component={Aplication}/>
-                <PrivateRoute path='/account' component={Aplication}/>
+                <PrivateRoute path='/account' component={Account}/>
                 <PrivateRoute path='/dashboard' component={Aplication}/>                
             </Provider>
         </Switch>

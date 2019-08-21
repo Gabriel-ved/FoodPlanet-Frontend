@@ -32,9 +32,7 @@ export default function Aplication (props){
           <ListStores {...props}/>
           <Car/>
         </section>
-        <footer className="footer">
-          <Footer/>
-        </footer>        
+          <Footer/>     
     </div>
   );
 }
