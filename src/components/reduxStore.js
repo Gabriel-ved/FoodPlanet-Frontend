@@ -3,7 +3,8 @@ import { createStore } from 'redux';
 const INITIAL_STATE={
     products:[],
     account:'',
-    total:0
+    total:0,
+    atualizar:0
 }
 
 function stores(state=INITIAL_STATE,action){
@@ -16,6 +17,8 @@ function stores(state=INITIAL_STATE,action){
             return {...state,products:state.products.filter(product=> product !== action.product),total:state.total - action.product.value};
         case 'REMOVEALL_PROD':
             return {...state,products:[],total:0}
+        case 'ATT':
+            return {...state,atualizar:state.atualizar + 1}
         default:
             return state;
     }

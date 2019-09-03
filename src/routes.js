@@ -19,15 +19,16 @@ const PrivateRoute = props =>(
         )
 )
 
-//information done!
-//contact done!
-//main done!
-//step done!
-//app 89%
-//details 99%
-//car 70%
-//account 0%
-//dashboard 0%
+//TODO: information done!
+//TODO: contact done!
+//TODO: main done!
+//TODO: step done!
+//TODO: app 89%
+//TODO: details 99%
+//TODO: car 70%
+//TODO: account 0%
+//TODO: dashboard 0%
+
 
 const Routes =()=>(
     <BrowserRouter>
@@ -41,7 +42,7 @@ const Routes =()=>(
                 <PrivateRoute path='/details/:id?' component={Details}/>
                 <PrivateRoute path='/car' component={Aplication}/>
                 <PrivateRoute path='/account' component={Account}/>
-                <PrivateRoute path='/dashboard' component={Aplication}/>                
+                <PrivateRoute path='/dashboard' component={Aplication}/>
             </Provider>
         </Switch>
     </BrowserRouter>

@@ -34,7 +34,7 @@ export default function Details(props){
                     <img src={produto.url ? produto.url : require("./Aplication/imagens/product-default.jpg")} alt=""/>
                     <div className="textdetails">
                         <h3>{produto.name}</h3>
-                        <p>{produto.code}</p>
+                        <p>{produto.description}</p>
                         <p>Preço:{produto.value}</p>
                         <button onClick={()=>{handleCar(produto)}}className="btn btn-primary">Adicionar ao carrinho</button>
                     </div>
