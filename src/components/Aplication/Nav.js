@@ -16,10 +16,7 @@ export default function Nav(){
           <nav>
             <ul className="menu">
               <li>
-                <a href="/information">Lojas</a>
-              </li>
-              <li>
-                <a href="/contact">Produtos</a>
+                <Link to='/lojas'>Lojas</Link>
               </li>
               <li>
                 <div className="btn-group">

@@ -10,7 +10,13 @@ export default function Account(){
   return(
     <div className="Main1">
         <Nav/>
-        {account.cnpj === undefined ? <AccountClient/> :<AccountStore/>}
+        {account.cnpj === undefined ?
+          <section className="Maincontainer">
+            <AccountClient/>
+          </section>
+          :
+          <AccountStore/>
+        }
         <Footer/>
     </div>
   )

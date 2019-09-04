@@ -64,7 +64,7 @@ export default function ModalCriar(){
                       </div>
                       <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" onClick={handleCancel} data-dismiss="modal">Fechar</button>
-                        <button type="button" className="btn btn-primary" onClick={()=>{handleForm()}}>Criar</button>
+                        <button type="button" className="btn btn-primary" onClick={()=>{handleForm()}} data-dismiss="modal">Criar</button>
                       </div>
                     </div>
                   </div>

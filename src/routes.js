@@ -23,11 +23,11 @@ const PrivateRoute = props =>(
 //TODO: contact done!
 //TODO: main done!
 //TODO: step done!
-//TODO: app 89%
-//TODO: details 99%
+//TODO: app 90%
+//TODO: details 100%
 //TODO: car 70%
-//TODO: account 0%
-//TODO: dashboard 0%
+//TODO: account 100%
+//TODO: dashboard 90%
 
 
 const Routes =()=>(

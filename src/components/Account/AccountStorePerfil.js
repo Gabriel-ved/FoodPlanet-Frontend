@@ -3,20 +3,19 @@ import './accountstyle.css';
 import Dropzone from 'react-dropzone';
 import api from '../../services/api';
 // TODO: Criar no backend uma forma de deletar a imagem junto com a conta
-export default function AccountClient(){
+export default function AccountStorePerfil(){
     const [url,setUrl]=useState(null);
     const [nome,setNome]=useState('');
     const [rua,setRua]=useState('');
     const [cidade,setCidade]=useState('');
     const [estado,setEstado]=useState('');
     const [cep,setCep]=useState('');
-    const [cpf,setCpf]=useState('');
+    const [cnpj,setCnpj]=useState('');
     const [erro,setErro]=useState(null);
-
     useEffect(()=>{
         const account = JSON.parse(localStorage.getItem('@FoodPlanet:user'))
         setNome(account.name);
-        setCpf(account.cpf);
+        setCnpj(account.cnpj);
         setUrl(account.url);
         if(account.local){
             setRua(account.local.street);
@@ -46,7 +45,7 @@ export default function AccountClient(){
         try{
             const response = await api.put('/account', {
                 name:nome,
-                cpf,
+                cnpj,
                         local:{
                             street:rua,
                             city:cidade,
@@ -65,9 +64,9 @@ export default function AccountClient(){
             await api.delete('/account')
             await localStorage.removeItem('@FoodPlanet:token');
             await localStorage.removeItem('@FoodPlanet:user');
-        }catch(err){
+        }catch(e){
             setErro('delete')
-            console.log(err)
+            console.log(e)
         }
     }
 
@@ -87,7 +86,7 @@ export default function AccountClient(){
 		setNome(e.target.value);
   }
   function handleChange6(e) {
-		setCpf(e.target.value);
+		setCnpj(e.target.value);
   }
     // TODO: deixar os label no centro
     return(
@@ -96,7 +95,7 @@ export default function AccountClient(){
                     <div className="Titulo">
                         <h3>Editar perfil</h3>
                     </div>
-                    {erro === 'form' && <p>Erro no envio do formulario</p>}
+                {erro === 'form' && <p>Erro no envio do formulario</p>}
                 {erro === 'image' && <p>Erro no envio da imagem</p>}
                 {erro === 'delete' && <p>Erro no delete</p>}
                 <div className="fotoPerfil">
@@ -112,14 +111,16 @@ export default function AccountClient(){
 						)}
 				</Dropzone>
                 </div>
+                
                 <div className="leftcontainer">
                 <label htmlFor="nome">Nome</label>
                 <input type="text" id="Nome" onChange={handleChange5} placeholder="Nome" value={nome}/>
-                <label htmlFor="Cpf">Cpf</label>
-                <input type="text" id="Cpf" onChange={handleChange6} placeholder="CPF"value={cpf}/>
+                <label htmlFor="Cpf">CNPJ</label>
+                <input type="text" id="Cpf" onChange={handleChange6} placeholder="CNPJ"value={cnpj}/>
                 <label htmlFor="Rua">Rua</label>
                 <input type="text" id="Rua" onChange={handleChange} placeholder="Rua"value={rua}/>
                 </div>
+                
                 <div className="rightcontainer">
                 <label htmlFor="Cidade">Cidade</label>
                 <input type="text" id="Cidade" onChange={handleChange3} placeholder="Cidade" value={cidade}/>
@@ -128,6 +129,7 @@ export default function AccountClient(){
                 <label htmlFor="Cep">Cep</label>
                 <input type="text" id="Cep" onChange={handleChange4} placeholder="Cep" value={cep}/>
                 </div>
+                
                 <button className="btn btn-primary btnPerfil" onClick={handleForm}>Atualizar</button>
               </form>
               <div className="Excluir">
@@ -149,12 +151,12 @@ export default function AccountClient(){
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-primary" data-dismiss="modal">Cancelar</button>
-                        <button type="button" onClick={handleExcluir} className="btn btn-danger">Excluir</button>
+                        <button type="button" onClick={handleExcluir} className="btn btn-danger" data-dismiss="modal">Excluir</button>
                     </div>
                     </div>
                 </div>
                 </div>
               </div>
-              </>
+        </>
     )
 }

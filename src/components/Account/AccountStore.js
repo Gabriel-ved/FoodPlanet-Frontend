@@ -4,26 +4,42 @@ import api from '../../services/api.js'
 import {useSelector,useDispatch} from 'react-redux';
 import Modal from './Modal';
 import ModalCriar from './ModalCriar';
-import {Redirect} from 'react-router-dom'
+import AccountStorePerfil from './AccountStorePerfil.js';
+
 export default function AccountStore(){
   const {_id} = JSON.parse(localStorage.getItem('@FoodPlanet:user'))
   const [produtos,setProdutos]=useState([]);
+  const [alterar,setAlterar]=useState(false);
+  const [label,setLabel]=useState('Perfil');
+  const [erro,setErro]=useState(null);
   const atualizar = useSelector(state=>state.atualizar);
   const dispatch = useDispatch()
+
   async function handleDelete(id){
     try{
       api.delete(`/products/${id}`)
       dispatch({type:'ATT'})
     }catch(err){
+      setErro('delete')
       console.log(err)
     }
   }
 
   async function loadProducts(){
-    const response = await api.get(`/stores/${_id}`);
-    const {products} = response.data.store;
-    setProdutos(products);
-    console.log(response)
+    try{
+      const response = await api.get(`/stores/${_id}`);
+      const {products} = response.data.store;
+      setProdutos(products);
+    }catch(err){
+      setErro('produtos')
+      console.log(err)
+    }
+    
+  }
+
+  function handleAlterar(){
+    setAlterar(!alterar);
+    label === 'Perfil'? setLabel('Produtos'): setLabel('Perfil')
   }
 
   useEffect(() =>{
@@ -34,8 +50,12 @@ export default function AccountStore(){
 // TODO: estilizar as imagens da lista
   return(
     <section className="Maincontainer">
+    <button onClick={handleAlterar} class='btn btn-primary'>Alterar {label}</button>
+    {alterar? <AccountStorePerfil/>:
     <div className="Storecontainer">
       <h3 className="Produtos">Produtos</h3>
+      {erro === 'delete' && <p>Erro no delete</p>}
+      {erro === 'produtos' && <p>Erro na busca dos produtos</p>}
       <div className="table-responsive-lg">
         <table className="table">
           <thead className="thead-dark">
@@ -94,6 +114,7 @@ export default function AccountStore(){
         </button>
         <ModalCriar/>
     </div>
+    }
     </section>
   )
 }

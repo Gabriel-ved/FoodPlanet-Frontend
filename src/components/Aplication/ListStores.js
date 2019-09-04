@@ -6,7 +6,6 @@ import {Link} from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 export default function ListStores (props) {
-  const [stores,setStores] = useState([]);
   const [products,setProducts] = useState([]);
   const [errorM,setError] = useState(null);
   const [totalpages,setTotalpages] = useState([]);
@@ -14,11 +13,6 @@ export default function ListStores (props) {
 
   async function loadData(page){
     try{
-      const response = await api.get('/stores')
-      const {stores} = response.data;
-      const storesTop = stores.slice(0,3)
-      setStores(storesTop);
-
       const respo = await api.get(`/products?page=${page}`)
       const products = respo.data.docs;
       const pages = respo.data.pages;
@@ -40,15 +34,7 @@ export default function ListStores (props) {
 
     return (
     <div className="stores">
-      <div className="listStoress">
-        
-          {stores.map((stores) => (
-              <div  key={stores._id}>
-                  <button type="button" className="btn btn-secondary">{stores.name}</button>
-              </div>
-            ))}
-        </div>
-
+      {!!errorM && <p>Erro ao carregar os produtos</p>}
           <div className="listProducts">
             
             {products.map(product=>(
@@ -68,16 +54,14 @@ export default function ListStores (props) {
                     </div>
                 ))}
           </div>
-
-          <nav aria-label="Page navigation example">
+        <nav aria-label="Page navigation example">
           <ul className="pagination justify-content-center">
-
             <li className="page-item"><a className="page-link" href="1">1</a></li>
             <li className="page-item"><a className="page-link" href="2">2</a></li>
             <li className="page-item"><a className="page-link" href="3">3</a></li>
-        </ul>
+          </ul>
         </nav>
-      {!!errorM && <p>{errorM}</p>}
+      
     </div>
   );
 }

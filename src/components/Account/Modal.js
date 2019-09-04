@@ -26,6 +26,7 @@ export default function Modal(props){
     const [nome,setNome]=useState('');
     const [descricao,setDescricao]=useState('');
     const [valor,setValor]=useState('');
+    const [erro,setErro]=useState(null);
     const dispatch = useDispatch()
     useEffect(()=>{
         setNome(produto.name)
@@ -114,7 +115,7 @@ export default function Modal(props){
                       </div>
                       <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" onClick={handleCancel} data-dismiss="modal">Fechar</button>
-                        <button type="button" className="btn btn-primary" onClick={()=>{handleForm(produto._id)}}>Salvar mudanças</button>
+                        <button type="button" className="btn btn-primary" onClick={()=>{handleForm(produto._id)}}  data-dismiss="modal">Salvar mudanças</button>
                       </div>
                     </div>
                   </div>
