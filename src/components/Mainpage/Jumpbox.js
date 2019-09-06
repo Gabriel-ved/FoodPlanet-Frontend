@@ -6,7 +6,7 @@ class Nav extends React.Component {
         <div className="jump">
         <div className="jumpbox">
             <img src={require('./oie_6xGcjDAbeubn.png')} alt=""/>
-            <p>Onde vc vende seu cu e compra o dos outros</p>
+            <p>Compre e venda seus produtos</p>
         </div>
     </div>
     );
